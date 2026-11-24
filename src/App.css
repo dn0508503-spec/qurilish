@@ -1,1081 +1,2863 @@
-
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+/* ==========================================================================
+   OZIMIZSTROY - PREMIUM MAISHIY TEXNIKA DO'KONI
+   Ranglar palitrasi: Chuqur Ko'k (Deep Royal Blue) + Havorang (Cyan) + Oltin (Luxury Gold)
+   ========================================================================== */
 
 :root {
-  font-family: 'DM Sans', sans-serif;
-  background: #100e13;
-  color: #fff;
-  font-synthesis: none;
-  scroll-behavior: smooth;
+  /* Asosiy Fon Ranglari (Deep Blue & Midnight Navy) */
+  --bg-deepest: #030917;
+  --bg-primary: #06122b;
+  --bg-secondary: #0a1c42;
+  --bg-card: rgba(11, 29, 68, 0.72);
+  --bg-card-hover: rgba(15, 38, 88, 0.9);
+  --bg-glass: rgba(8, 22, 54, 0.78);
+
+  /* Havorang (Cyan / Sky Blue) Aksentlar */
+  --cyan-primary: #00d2ff;
+  --cyan-bright: #38e8ff;
+  --cyan-soft: rgba(0, 210, 255, 0.16);
+  --cyan-border: rgba(0, 210, 255, 0.35);
+  --royal-blue: #1d4ed8;
+  --sky-blue: #38bdf8;
+
+  /* Oltin (Luxury Gold / Amber) Aksentlar */
+  --gold-primary: #f5c451;
+  --gold-bright: #ffe082;
+  --gold-deep: #d99b26;
+  --gold-soft: rgba(245, 196, 81, 0.16);
+  --gold-border: rgba(245, 196, 81, 0.42);
+  --gold-gradient: linear-gradient(135deg, #ffe082 0%, #f5c451 50%, #d4941e 100%);
+  --blue-cyan-gradient: linear-gradient(135deg, #00d2ff 0%, #2563eb 100%);
+  --mixed-luxury-gradient: linear-gradient(135deg, #00d2ff 0%, #3b82f6 52%, #f5c451 100%);
+
+  /* Matn Ranglari */
+  --text-main: #f1f6ff;
+  --text-secondary: #b4c6eb;
+  --text-muted: #7a93c4;
+  --text-dark: #050e24;
+
+  /* Status Ranglari */
+  --success: #10b981;
+  --danger: #ff4d6d;
+
+  /* Soyalar va Radiuslar */
+  --shadow-blue: 0 18px 45px rgba(2, 10, 30, 0.65);
+  --shadow-gold: 0 10px 30px rgba(245, 196, 81, 0.25);
+  --shadow-cyan: 0 10px 30px rgba(0, 210, 255, 0.22);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* O'tish animatsiyasi */
+  --transition-fast: 0.22s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-smooth: 0.38s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; background: #100e13; }
-button, input, select { font: inherit; }
-button, a { -webkit-tap-highlight-color: transparent; }
-button { cursor: pointer; }
-a { text-decoration: none; color: inherit; }
+/* ==========================================================================
+   GLOBAL RESET VA ASOSIY SOZLAMALAR
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-.app {
-  --pink: #ff5b9d;
-  --pink-light: #ff8db9;
-  --bg: #100e13;
-  --card: #1b1820;
-  --muted: #a39ba8;
-  background: var(--bg);
-  color: #fff;
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  background-color: var(--bg-deepest);
+  background-image:
+    radial-gradient(circle at 15% 10%, rgba(0, 210, 255, 0.14) 0%, transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(245, 196, 81, 0.11) 0%, transparent 42%),
+    radial-gradient(circle at 50% 80%, rgba(29, 78, 216, 0.18) 0%, transparent 50%),
+    linear-gradient(180deg, #040c1f 0%, #071636 50%, #040b1c 100%);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
   min-height: 100vh;
+}
+
+/* Maxsus Scrollbar (Ko'k va Oltin) */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #040c1f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--cyan-primary), var(--gold-primary));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ==========================================================================
+   ORQA FONDAGI SUZUVCHI NURLI SHARLAR (AMBIENT MOTION)
+   ========================================================================== */
+.ambient-backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
   overflow: hidden;
 }
 
-.topbar {
-  min-height: 34px;
-  padding: 8px 20px;
-  background: #ff5b9d;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.45;
+  animation: floatOrb 18s ease-in-out infinite alternate;
 }
 
-.header {
-  height: 82px;
+.orb-cyan {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, #00d2ff, transparent 70%);
+  top: -120px;
+  left: -100px;
+}
+
+.orb-royal {
+  width: 560px;
+  height: 560px;
+  background: radial-gradient(circle, #2563eb, transparent 70%);
+  bottom: 10%;
+  right: -140px;
+  animation-delay: -6s;
+}
+
+.orb-gold {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, #f5c451, transparent 72%);
+  top: 42%;
+  left: 38%;
+  opacity: 0.22;
+  animation-duration: 24s;
+}
+
+@keyframes floatOrb {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(45px, -35px) scale(1.08);
+  }
+  100% {
+    transform: translate(-30px, 40px) scale(0.95);
+  }
+}
+
+.ozimiz-app {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   YUQORI AXBOROT LENTASI (TOP PROMO RIBBON)
+   ========================================================================== */
+.top-promo-ribbon {
+  background: linear-gradient(90deg, #051330 0%, #0d275c 50%, #051330 100%);
+  border-bottom: 1px solid rgba(245, 196, 81, 0.25);
+  font-size: 0.84rem;
+  padding: 9px 0;
+  position: relative;
+  z-index: 50;
+}
+
+.ribbon-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ribbon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-border);
+  color: var(--gold-primary);
+  padding: 3px 11px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  box-shadow: 0 0 10px var(--gold-primary);
+  animation: pulseGlow 1.6s infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+.ribbon-text {
+  color: var(--text-secondary);
+}
+
+.ribbon-text strong {
+  color: var(--cyan-bright);
+}
+
+.gold-highlight {
+  background: var(--gold-gradient);
+  color: var(--text-dark);
+  padding: 1px 8px;
+  border-radius: 5px;
+  font-weight: 800;
+}
+
+.ribbon-contact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.ribbon-contact .divider {
+  color: rgba(245, 196, 81, 0.35);
+}
+
+/* ==========================================================================
+   ASOSIY STICKY GLASS HEADER
+   ========================================================================== */
+.main-header {
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: #100e13ed;
+  z-index: 100;
+  background: rgba(5, 16, 40, 0.84);
   backdrop-filter: blur(18px);
-  border-bottom: 1px solid #ffffff12;
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(0, 210, 255, 0.22);
+  box-shadow: 0 10px 30px rgba(2, 8, 24, 0.55);
+  padding: 14px 0;
 }
 
 .header-inner {
-  max-width: 1320px;
-  height: 100%;
-  margin: auto;
-  padding: 0 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
 }
 
-.logo {
+/* Brend Logotipi */
+.brand-logo {
   display: flex;
   align-items: center;
-  gap: 11px;
-}
-
-.logo-symbol {
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  background: var(--pink);
-  border-radius: 13px;
-  font-family: Manrope, sans-serif;
-  font-weight: 800;
-  font-size: 25px;
-  color: white;
-  box-shadow: 0 5px 25px #ff5b9d40;
-}
-
-.logo-text {
-  font-family: Manrope, sans-serif;
-  font-weight: 800;
-  font-size: 19px;
-  letter-spacing: 1px;
-}
-
-.logo-text > span { color: var(--pink); }
-
-.logo-text small {
-  display: block;
-  color: #948a98;
-  font-size: 8px;
-  letter-spacing: 2px;
-  margin-top: 3px;
-}
-
-.nav {
-  display: flex;
-  gap: 34px;
-}
-
-.nav a {
-  color: #b7afba;
-  font-size: 12px;
-  font-weight: 600;
-  transition: .2s;
-}
-
-.nav a:hover { color: var(--pink); }
-
-.header-actions {
-  display: flex;
   gap: 12px;
-  align-items: center;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
 }
 
-.favorite-header {
-  background: #211c26;
-  color: var(--pink);
-  border: 1px solid #ffffff12;
-  height: 43px;
-  padding: 0 13px;
-  border-radius: 11px;
-  font-size: 19px;
+.brand-logo:hover {
+  transform: translateY(-1px);
 }
 
-.favorite-header span {
-  font-size: 11px;
-  margin-left: 4px;
-}
-
-.cart-button {
-  height: 43px;
+.logo-emblem {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #0d2862, #061331);
+  border: 1.5px solid var(--gold-primary);
+  box-shadow: 0 0 20px rgba(245, 196, 81, 0.28), inset 0 0 12px rgba(0, 210, 255, 0.25);
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 15px;
-  border: none;
-  border-radius: 11px;
-  background: var(--pink);
-  color: white;
-  font-weight: 700;
-  font-size: 12px;
-  transition: .2s;
-}
-
-.cart-button:hover, .pink-button:hover {
-  background: #ff82b2;
-  transform: translateY(-2px);
-}
-
-.cart-button b {
-  background: #fff;
-  color: #ff5b9d;
-  border-radius: 50%;
-  width: 21px;
-  height: 21px;
-  display: grid;
-  place-items: center;
-  font-size: 10px;
-}
-
-.mobile-menu-button {
-  display: none;
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 25px;
-}
-
-.hero {
-  max-width: 1320px;
-  min-height: 555px;
-  margin: auto;
-  padding: 75px 25px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 55px;
-}
-
-.hero-label, .eyebrow {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: var(--pink);
-}
-
-.hero-label {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.hero-label span {
-  width: 8px;
-  height: 8px;
-  background: var(--pink);
-  border-radius: 50%;
-  box-shadow: 0 0 15px var(--pink);
-}
-
-.hero h1 {
-  font-family: Manrope, sans-serif;
-  font-size: clamp(45px, 6vw, 75px);
-  line-height: 1.08;
-  letter-spacing: -4px;
-  margin: 25px 0;
-  font-weight: 800;
-}
-
-.hero h1 span { color: var(--pink); }
-
-.hero-content > p {
-  max-width: 440px;
-  color: #a39ba8;
-  font-size: 14px;
-  line-height: 1.9;
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 13px;
-  margin-top: 30px;
-  flex-wrap: wrap;
-}
-
-.pink-button {
-  display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--pink);
-  color: white;
-  border-radius: 10px;
-  padding: 16px 22px;
-  font-size: 12px;
-  font-weight: 800;
-  transition: .25s;
 }
 
-.outline-button {
-  padding: 15px 22px;
-  border: 1px solid #ffffff25;
-  border-radius: 10px;
-  font-size: 12px;
-  color: white;
+.logo-crown {
+  font-size: 1.45rem;
+  color: var(--gold-primary);
+  filter: drop-shadow(0 0 6px rgba(245, 196, 81, 0.6));
 }
 
-.outline-button:hover { border-color: var(--pink); }
-
-.hero-numbers {
-  display: flex;
-  gap: 45px;
-  margin-top: 50px;
-}
-
-.hero-numbers div {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-
-.hero-numbers strong {
-  font-family: Manrope, sans-serif;
-  font-size: 24px;
-  color: white;
-}
-
-.hero-numbers span {
-  color: #928a98;
-  font-size: 10px;
-}
-
-.hero-visual {
-  position: relative;
-  padding: 18px;
-}
-
-.hero-image {
-  height: 420px;
-  overflow: hidden;
-  border-radius: 24px;
-  border: 1px solid #ff5b9d45;
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 20px 80px #ff5b9d18;
-}
-
-.hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-bubble {
+.logo-bolt {
   position: absolute;
-  z-index: 3;
-  left: -20px;
-  bottom: 0;
-  padding: 17px 21px;
-  border: 1px solid #ffffff12;
-  background: #211c26;
-  border-radius: 14px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  box-shadow: 0 15px 40px #0008;
-}
-
-.hero-bubble > span {
-  width: 38px;
-  height: 38px;
-  background: #ff5b9d25;
-  color: var(--pink);
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  font-size: 22px;
-}
-
-.hero-bubble div {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.hero-bubble b { font-size: 12px; }
-.hero-bubble small { color: #a39ba8; font-size: 10px; }
-
-.hero-sticker {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 3;
-  width: 80px;
-  height: 80px;
-  display: grid;
-  place-content: center;
-  text-align: center;
-  background: var(--pink);
+  bottom: -4px;
+  right: -4px;
+  font-size: 0.82rem;
+  background: var(--cyan-primary);
+  color: #030917;
+  width: 19px;
+  height: 19px;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  font-size: 1.5rem;
   font-weight: 800;
-  font-size: 11px;
-  line-height: 1.5;
-  transform: rotate(12deg);
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  line-height: 1.1;
 }
 
-.benefits {
-  max-width: 1270px;
-  margin: 0 auto 90px;
-  padding: 28px;
-  border: 1px solid #ffffff12;
-  background: #1a171f;
-  border-radius: 17px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+.gold-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.benefits > div {
-  display: grid;
-  grid-template-columns: 45px 1fr;
-  grid-template-rows: auto auto;
-  column-gap: 12px;
+.logo-subtitle {
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: var(--cyan-primary);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* Qidiruv maydoni */
+.header-search-box {
+  flex: 1;
+  max-width: 540px;
+  position: relative;
+  display: flex;
   align-items: center;
 }
 
-.benefits > div > span {
-  grid-row: span 2;
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  background: #ff5b9d1c;
-  border-radius: 12px;
-  color: var(--pink);
-  font-size: 22px;
+.header-search-box input {
+  width: 100%;
+  padding: 12px 42px 12px 44px;
+  border-radius: 999px;
+  background: rgba(10, 28, 66, 0.85);
+  border: 1px solid rgba(0, 210, 255, 0.3);
+  color: var(--text-main);
+  font-size: 0.94rem;
+  outline: none;
+  transition: all var(--transition-fast);
 }
 
-.benefits b { font-size: 12px; }
-.benefits small { color: #938b99; font-size: 10px; }
-
-.catalog {
-  max-width: 1320px;
-  margin: auto;
-  padding: 0 25px 100px;
+.header-search-box input::placeholder {
+  color: var(--text-muted);
 }
 
-.section-title {
+.header-search-box input:focus {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 0 4px rgba(245, 196, 81, 0.14), 0 0 25px rgba(0, 210, 255, 0.2);
+  background: rgba(13, 34, 80, 0.95);
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 14px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
   display: flex;
-  justify-content: space-between;
-  align-items: end;
-  margin-bottom: 35px;
+  align-items: center;
+  justify-content: center;
 }
 
-.section-title h2 {
-  font-family: Manrope, sans-serif;
-  font-size: 42px;
-  letter-spacing: -2px;
-  margin: 13px 0 8px;
+.clear-search-btn:hover {
+  background: var(--gold-primary);
+  color: var(--text-dark);
 }
 
-.section-title h2 span { color: var(--pink); }
-
-.section-title p {
-  color: #a39ba8;
-  font-size: 13px;
+/* Header Action Tugmalari (Sevimlilar & Savatcha) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.catalog-total {
+.action-pill-btn {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #a39ba8;
-  font-size: 11px;
+  padding: 8px 16px;
+  border-radius: 16px;
+  background: rgba(12, 32, 74, 0.85);
+  border: 1px solid rgba(0, 210, 255, 0.28);
+  transition: all var(--transition-fast);
 }
 
-.catalog-total strong {
-  color: var(--pink);
-  font-size: 32px;
+.action-pill-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold-primary);
+  background: rgba(18, 44, 98, 0.95);
+  box-shadow: 0 8px 24px rgba(0, 210, 255, 0.18);
 }
 
-.categories {
+.favorites-trigger.has-items {
+  border-color: rgba(245, 196, 81, 0.55);
+  background: linear-gradient(135deg, rgba(16, 39, 88, 0.9), rgba(245, 196, 81, 0.12));
+}
+
+.btn-icon {
+  font-size: 1.25rem;
+}
+
+.heart-pulse {
+  color: var(--gold-primary);
+  filter: drop-shadow(0 0 8px rgba(245, 196, 81, 0.55));
+}
+
+.btn-label-group {
   display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin-bottom: 22px;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
 }
 
-.category {
-  background: #1b1820;
-  border: 1px solid #ffffff12;
-  color: #aaa1af;
-  border-radius: 9px;
-  padding: 11px 16px;
-  font-size: 11px;
-  font-weight: 600;
-  transition: .2s;
+.btn-small-hint {
+  font-size: 0.68rem;
+  color: var(--text-muted);
 }
 
-.category:hover, .category.active {
-  background: var(--pink);
-  border-color: var(--pink);
-  color: white;
+.btn-main-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
 }
 
-.search-sort {
+.counter-badge {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 7px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.gold-badge {
+  background: var(--gold-gradient);
+  color: var(--text-dark);
+  box-shadow: 0 0 12px rgba(245, 196, 81, 0.5);
+}
+
+.cyan-badge {
+  background: var(--blue-cyan-gradient);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.45);
+}
+
+/* ==========================================================================
+   HERO SECTION (ASOSIY BANNER)
+   ========================================================================== */
+.hero-section {
+  padding: 56px 0 48px;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(0, 210, 255, 0.12);
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  color: var(--cyan-bright);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+}
+
+.gold-star {
+  color: var(--gold-primary);
+  font-size: 0.95rem;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 4vw, 3.45rem);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.cyan-gradient-text {
+  background: linear-gradient(135deg, #38e8ff 0%, #0099ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  font-size: 1.06rem;
+  color: var(--text-secondary);
+  max-width: 600px;
   margin-bottom: 30px;
 }
 
-.search {
-  height: 46px;
-  max-width: 400px;
-  width: 100%;
-  background: #1b1820;
-  border: 1px solid #ffffff15;
-  border-radius: 10px;
+.inline-fav-link {
+  color: var(--gold-primary);
+  font-weight: 700;
+  cursor: pointer;
+  border-bottom: 1px dashed var(--gold-primary);
+  transition: opacity 0.2s;
+}
+
+.inline-fav-link:hover {
+  opacity: 0.85;
+}
+
+.hero-cta-group {
   display: flex;
   align-items: center;
-  padding: 0 15px;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 38px;
+}
+
+/* Oltin asosiy tugma */
+.btn-gold-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 14px;
+  background: var(--gold-gradient);
+  color: #050e24;
+  font-weight: 800;
+  font-size: 0.96rem;
+  box-shadow: 0 10px 28px rgba(245, 196, 81, 0.34);
+  transition: all var(--transition-fast);
+}
+
+.btn-gold-primary:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(245, 196, 81, 0.5);
+  filter: brightness(1.06);
+}
+
+.btn-gold-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-gold-primary.full-width {
+  width: 100%;
+}
+
+.arrow-shift {
+  transition: transform 0.25s ease;
+}
+
+.btn-gold-primary:hover .arrow-shift {
+  transform: translateX(5px);
+}
+
+/* Ko'k shishasimon ikkinchi tugma */
+.btn-blue-glass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  background: rgba(14, 38, 86, 0.75);
+  border: 1px solid rgba(0, 210, 255, 0.4);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-fast);
+}
+
+.btn-blue-glass:hover {
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+  background: rgba(20, 48, 108, 0.9);
+  transform: translateY(-2px);
+}
+
+/* Hero Statistika Kartalari */
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 560px;
+}
+
+.metric-card {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(10, 28, 66, 0.65);
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.metric-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+}
+
+.metric-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* Hero Visual Showcase */
+.float-animation {
+  animation: heroFloat 6s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.showcase-glass-frame {
+  position: relative;
+  border-radius: 28px;
+  padding: 18px;
+  background: linear-gradient(
+    145deg,
+    rgba(0, 210, 255, 0.16) 0%,
+    rgba(10, 28, 68, 0.85) 50%,
+    rgba(245, 196, 81, 0.2) 100%
+  );
+  border: 1.5px solid rgba(245, 196, 81, 0.4);
+  box-shadow: 0 28px 65px rgba(2, 10, 30, 0.75), 0 0 40px rgba(0, 210, 255, 0.16);
+}
+
+.showcase-top-tag {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+}
+
+.tag-gold {
+  background: var(--gold-gradient);
+  color: #050e24;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.tag-cyan {
+  background: rgba(4, 15, 38, 0.85);
+  border: 1px solid var(--cyan-primary);
+  color: var(--cyan-bright);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.showcase-hero-img {
+  width: 100%;
+  height: 410px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.showcase-floating-card {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  right: 30px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: rgba(5, 16, 42, 0.88);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 196, 81, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.floating-brand {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--cyan-primary);
+  font-weight: 700;
+}
+
+.floating-info h4 {
+  font-size: 1.05rem;
+  color: #ffffff;
+  margin: 2px 0;
+}
+
+.floating-price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+}
+
+.floating-fav-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+}
+
+.floating-fav-btn:hover {
+  background: var(--gold-primary);
+  color: #050e24;
+  transform: scale(1.08);
+}
+
+/* ==========================================================================
+   FLASH SALE / KUN AKSIYASI TAYMERI
+   ========================================================================== */
+.flash-sale-strip {
+  margin: 12px 0 42px;
+}
+
+.flash-inner {
+  padding: 20px 28px;
+  border-radius: 22px;
+  background: linear-gradient(
+    90deg,
+    rgba(11, 33, 78, 0.92) 0%,
+    rgba(18, 49, 112, 0.92) 50%,
+    rgba(46, 36, 16, 0.85) 100%
+  );
+  border: 1px solid rgba(245, 196, 81, 0.38);
+  box-shadow: 0 14px 36px rgba(2, 10, 30, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.flash-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.flash-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.flash-left h3 {
+  font-size: 1.15rem;
+  color: var(--gold-primary);
+}
+
+.flash-left p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+.countdown-boxes {
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
 
-.search span {
-  font-size: 23px;
-  color: var(--pink);
+.time-unit {
+  min-width: 62px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(4, 13, 33, 0.85);
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  text-align: center;
 }
 
-.search input {
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: white;
-  font-size: 12px;
+.time-unit.gold-unit {
+  border-color: var(--gold-primary);
+  box-shadow: 0 0 15px rgba(245, 196, 81, 0.25);
 }
 
-.search input::placeholder { color: #8e8594; }
-
-.search-sort select {
-  height: 46px;
-  padding: 0 15px;
-  border-radius: 10px;
-  background: #1b1820;
-  border: 1px solid #ffffff15;
-  color: white;
-  outline: none;
-  font-size: 11px;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.product-card {
-  min-width: 0;
-  background: #1b1820;
-  border: 1px solid #ffffff12;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: .3s;
-}
-
-.product-card:hover {
-  transform: translateY(-7px);
-  border-color: #ff5b9d85;
-  box-shadow: 0 15px 40px #ff5b9d12;
-}
-
-.product-image {
-  height: 205px;
-  position: relative;
-  overflow: hidden;
-  background: #25212a;
-}
-
-.product-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .5s;
-}
-
-.product-card:hover .product-image img {
-  transform: scale(1.07);
-}
-
-.product-tag {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 7px 10px;
-  border-radius: 6px;
-  background: var(--pink);
-  color: white;
-  font-size: 9px;
+.time-num {
+  display: block;
+  font-size: 1.3rem;
   font-weight: 800;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
 }
 
-.favorite-button {
-  position: absolute;
-  top: 11px;
-  right: 11px;
-  height: 34px;
-  width: 34px;
-  border-radius: 50%;
-  border: none;
-  background: #17141bcf;
-  color: white;
-  font-size: 19px;
-  transition: .2s;
+.gold-unit .time-num {
+  color: var(--gold-primary);
 }
 
-.favorite-button:hover, .favorite-button.favorite-active {
-  color: var(--pink);
-}
-
-.product-info { padding: 15px; }
-
-.product-category {
-  font-size: 9px;
-  letter-spacing: 1px;
-  color: var(--pink);
-  font-weight: 800;
+.time-lbl {
+  font-size: 0.68rem;
+  color: var(--text-muted);
   text-transform: uppercase;
 }
 
-.product-info h3 {
-  font-family: Manrope, sans-serif;
-  font-size: 13px;
-  line-height: 1.5;
-  min-height: 39px;
-  margin: 9px 0 5px;
+.time-sep {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--gold-primary);
 }
 
-.product-unit {
-  color: #918997;
-  font-size: 10px;
-  margin: 0;
+.flash-filter-btn {
+  padding: 12px 22px;
+  border-radius: 12px;
+  background: var(--blue-cyan-gradient);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-cyan);
+  transition: all 0.25s ease;
 }
 
-.product-prices {
-  margin: 16px 0;
+.flash-filter-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+/* ==========================================================================
+   KATEGORIYALAR BO'LIMI
+   ========================================================================== */
+.categories-section {
+  padding: 20px 0 44px;
+}
+
+.section-header-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.section-kicker {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--cyan-primary);
+  margin-bottom: 6px;
+}
+
+.section-heading {
+  font-size: clamp(1.55rem, 2.5vw, 2.1rem);
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.wishlist-shortcut-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px solid var(--gold-border);
+  color: var(--gold-primary);
+  font-weight: 700;
+  font-size: 0.88rem;
+  transition: all 0.25s ease;
+}
+
+.wishlist-shortcut-pill:hover {
+  background: var(--gold-primary);
+  color: #050e24;
+}
+
+.pill-count {
+  background: rgba(5, 14, 36, 0.7);
+  color: var(--gold-primary);
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+}
+
+.wishlist-shortcut-pill:hover .pill-count {
+  color: #ffffff;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 14px;
+}
+
+.category-tile {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  padding: 18px 12px;
+  border-radius: 18px;
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  transition: all var(--transition-fast);
 }
 
-.product-prices strong {
-  color: white;
-  font-family: Manrope, sans-serif;
-  font-size: 15px;
+.category-tile:hover {
+  transform: translateY(-4px);
+  border-color: var(--cyan-primary);
+  background: var(--bg-card-hover);
 }
 
-.product-prices del {
-  color: #89808e;
-  font-size: 10px;
+.category-tile.active {
+  background: linear-gradient(145deg, rgba(0, 210, 255, 0.22), rgba(245, 196, 81, 0.2));
+  border-color: var(--gold-primary);
+  box-shadow: 0 12px 28px rgba(245, 196, 81, 0.2);
 }
 
-.add-to-cart {
-  height: 42px;
-  width: 100%;
-  border: 1px solid #ff5b9d35;
-  border-radius: 9px;
-  background: #ff5b9d18;
-  color: var(--pink);
-  font-size: 11px;
+.cat-icon {
+  font-size: 1.75rem;
+}
+
+.cat-name {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.cat-badge {
+  font-size: 0.72rem;
+  color: var(--cyan-bright);
+  background: rgba(0, 210, 255, 0.12);
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+
+.category-tile.active .cat-badge {
+  background: var(--gold-primary);
+  color: #050e24;
   font-weight: 800;
+}
+
+/* ==========================================================================
+   ASOSIY KATALOG VA SIDEBAR FILTRLAR
+   ========================================================================== */
+.catalog-section {
+  padding: 20px 0 70px;
+}
+
+.catalog-layout {
+  display: grid;
+  grid-template-columns: 295px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Chap taraf Sidebar */
+.filters-sidebar {
+  position: sticky;
+  top: 94px;
+  padding: 22px;
+  border-radius: 22px;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 210, 255, 0.24);
+  box-shadow: var(--shadow-blue);
+}
+
+.sidebar-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-header h3 {
+  font-size: 1.08rem;
+  color: #ffffff;
+}
+
+.reset-link {
+  font-size: 0.82rem;
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+
+.reset-link:hover {
+  text-decoration: underline;
+}
+
+.filter-group {
+  margin-bottom: 22px;
+}
+
+.filter-title {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--cyan-bright);
+  margin-bottom: 10px;
+}
+
+/* Brend Chiplari */
+.brand-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.brand-chip {
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(5, 16, 40, 0.75);
+  border: 1px solid rgba(0, 210, 255, 0.22);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.brand-chip:hover {
+  border-color: var(--cyan-primary);
+  color: #ffffff;
+}
+
+.brand-chip.selected {
+  background: var(--gold-gradient);
+  border-color: var(--gold-primary);
+  color: #050e24;
+  font-weight: 800;
+}
+
+/* Narx Slayderi */
+.price-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.price-val-gold {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+}
+
+.gold-range-slider {
+  width: 100%;
+  accent-color: var(--gold-primary);
+  cursor: pointer;
+}
+
+.range-limits {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Maxsus Checkboxlar */
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.custom-checkbox input {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--gold-primary);
+  cursor: pointer;
+}
+
+/* Sidebar ichidagi Sevimlilar mini-bloki */
+.sidebar-wishlist-box {
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(245, 196, 81, 0.12), rgba(0, 210, 255, 0.08));
+  border: 1px solid rgba(245, 196, 81, 0.35);
+}
+
+.sw-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+}
+
+.sw-header button {
+  font-size: 0.78rem;
+  color: var(--cyan-bright);
+  font-weight: 700;
+}
+
+.sw-empty {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.sw-mini-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sw-mini-item {
+  display: flex;
+  align-items: center;
   gap: 9px;
-  transition: .25s;
+  background: rgba(4, 13, 34, 0.7);
+  padding: 7px;
+  border-radius: 10px;
 }
 
-.add-to-cart:hover {
-  background: var(--pink);
-  color: white;
+.sw-mini-item img {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 
-.add-to-cart > span:first-child { font-size: 19px; }
-.add-arrow { margin-left: auto; padding-right: 12px; }
-
-.empty-results {
-  grid-column: 1/-1;
-  text-align: center;
-  padding: 70px 20px;
-  color: #aaa;
+.sw-mini-info {
+  flex: 1;
+  min-width: 0;
 }
 
-.empty-results h3 { color: white; }
-.empty-results button {
-  background: var(--pink);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 9px;
+.sw-mini-info p {
+  font-size: 0.76rem;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.promo {
-  max-width: 1270px;
-  margin: 0 auto 90px;
+.sw-mini-info span {
+  font-size: 0.72rem;
+  color: var(--gold-primary);
+  font-weight: 700;
+}
+
+.sw-mini-item button {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 4px;
+}
+
+.sw-mini-item button:hover {
+  color: var(--danger);
+}
+
+/* Katalog Toolbar */
+.catalog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 210, 255, 0.22);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.results-counter {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+.results-counter strong {
+  color: var(--gold-primary);
+}
+
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.sort-control select {
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #061433;
+  border: 1px solid rgba(245, 196, 81, 0.4);
+  color: #ffffff;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Mahsulotlar Grid Setkasi */
+.products-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: #1c1821;
-  border: 1px solid #ffffff12;
-  border-radius: 23px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+/* ==========================================================================
+   PRODUCT CARD (MAHSULOT KARTOCHKASI STILLARI VA ANIMATSIYALARI)
+   ========================================================================== */
+.product-card {
+  position: relative;
+  border-radius: 22px;
+  background: linear-gradient(
+    165deg,
+    rgba(13, 35, 82, 0.88) 0%,
+    rgba(7, 20, 50, 0.94) 100%
+  );
+  border: 1px solid rgba(0, 210, 255, 0.24);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.28s ease, box-shadow 0.35s ease, border-color 0.3s ease;
+  box-shadow: 0 14px 34px rgba(2, 9, 27, 0.55);
+}
+
+.product-card:hover {
+  border-color: rgba(245, 196, 81, 0.65);
+  box-shadow:
+    0 22px 48px rgba(2, 10, 32, 0.8),
+    0 0 28px rgba(0, 210, 255, 0.2),
+    0 0 18px rgba(245, 196, 81, 0.16);
+}
+
+.product-card.is-favorited {
+  border-color: rgba(245, 196, 81, 0.55);
+}
+
+/* Dinamik sichqoncha nuri (Spotlight Glare) */
+.pc-spotlight-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(0, 210, 255, 0.14),
+    rgba(245, 196, 81, 0.08) 45%,
+    transparent 80%
+  );
+  z-index: 2;
+}
+
+.product-card:hover .pc-spotlight-glare {
+  opacity: 1;
+}
+
+/* Rasm qismi */
+.pc-media-box {
+  position: relative;
+  height: 230px;
+  background: linear-gradient(180deg, #0b2254 0%, #061433 100%);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.pc-img-wrapper {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
-.promo > div {
-  padding: 55px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.promo h2 {
-  font-family: Manrope, sans-serif;
-  font-size: 39px;
-  line-height: 1.25;
-  letter-spacing: -2px;
-}
-
-.promo h2 span { color: var(--pink); }
-
-.promo p {
-  color: #a39ba8;
-  font-size: 13px;
-  line-height: 1.8;
-  margin-bottom: 25px;
-}
-
-.promo img {
+.pc-product-img {
   width: 100%;
   height: 100%;
-  min-height: 380px;
   object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.newsletter {
-  max-width: 1270px;
-  margin: 0 auto 85px;
-  padding: 35px 40px;
-  border-radius: 19px;
-  background: linear-gradient(110deg, #331b2b, #211820);
-  border: 1px solid #ff5b9d40;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+.product-card:hover .pc-product-img {
+  transform: scale(1.08);
 }
 
-.newsletter h2 {
-  font-family: Manrope, sans-serif;
-  font-size: 26px;
-  margin: 12px 0 7px;
-}
-
-.newsletter p {
-  color: #b4a6b3;
-  font-size: 12px;
-}
-
-footer {
-  background: #0b0a0e;
-  border-top: 1px solid #ffffff12;
-  padding: 55px max(calc((100% - 1270px)/2), 25px) 20px;
-}
-
-.footer-main {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1.3fr;
-  gap: 35px;
-  padding-bottom: 45px;
-}
-
-.footer-main p {
-  color: #918995;
-  font-size: 12px;
-  margin-top: 20px;
-}
-
-.footer-main h4 {
-  font-size: 12px;
-  margin: 5px 0 18px;
-}
-
-.footer-main > div:not(:first-child) {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-}
-
-.footer-main a:not(.logo) {
-  color: #a59ca9;
-  font-size: 11px;
-}
-
-.footer-main a:hover { color: var(--pink); }
-
-.footer-bottom {
-  border-top: 1px solid #ffffff17;
-  padding-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  color: #928a96;
-  font-size: 10px;
-}
-
-/* SHOPPING CART */
-
-.cart-overlay {
-  position: fixed;
-  inset: 0;
-  background: #000b;
-  backdrop-filter: blur(5px);
-  z-index: 200;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.cart-drawer {
-  width: min(470px, 100%);
-  height: 100%;
-  background: #17141c;
-  border-left: 1px solid #ff5b9d40;
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  animation: cartSlide .3s ease;
-}
-
-@keyframes cartSlide {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
-}
-
-.cart-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 22px;
-  border-bottom: 1px solid #ffffff16;
-}
-
-.cart-header h2 {
-  font-family: Manrope, sans-serif;
-  font-size: 23px;
-  margin: 9px 0 0;
-}
-
-.cart-header h2 span { color: var(--pink); }
-
-.close-button {
-  height: 38px;
-  width: 38px;
-  border: 1px solid #ffffff15;
-  border-radius: 10px;
-  background: #25202a;
-  color: white;
-  font-size: 25px;
-}
-
-.close-button:hover { background: var(--pink); }
-
-.cart-items {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.empty-cart {
-  margin-top: 100px;
-  text-align: center;
-  color: #a39ba8;
-}
-
-.empty-cart svg {
-  width: 55px;
-  height: 55px;
-  color: var(--pink);
-}
-
-.empty-cart h3 {
-  color: white;
-  font-size: 17px;
-}
-
-.empty-cart p { font-size: 12px; }
-
-.empty-cart button {
-  background: var(--pink);
-  border: none;
-  color: white;
-  padding: 13px 20px;
-  border-radius: 9px;
-  margin-top: 10px;
-}
-
-.cart-item {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 17px 0;
-  border-bottom: 1px solid #ffffff12;
-}
-
-.cart-item img {
-  width: 83px;
-  height: 85px;
-  object-fit: cover;
-  border-radius: 11px;
-}
-
-.cart-item-info {
-  flex: 1;
+/* Chap yuqori nishonlar */
+.pc-badges-stack {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.cart-item-info small {
-  color: var(--pink);
-  font-size: 9px;
+.pc-badge {
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  width: fit-content;
 }
 
-.cart-item-info b {
-  color: white;
-  font-size: 12px;
+.badge-gold-discount {
+  background: var(--gold-gradient);
+  color: #050e24;
+  box-shadow: 0 4px 14px rgba(245, 196, 81, 0.45);
 }
 
-.cart-item-info strong {
-  color: var(--pink);
-  font-size: 12px;
+.badge-cyan-new {
+  background: rgba(0, 210, 255, 0.92);
+  color: #030917;
 }
 
-.quantity {
+.badge-royal-hit {
+  background: rgba(13, 38, 92, 0.9);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+/* SEVIMLILARGA QO'SHISH TUGMASI (YURAKCHA VA ZARRALAR ANIMATSIYASI) */
+.pc-wishlist-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(5, 16, 40, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
-  gap: 13px;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.quantity button {
-  width: 27px;
-  height: 27px;
+.pc-wishlist-btn:hover {
+  transform: scale(1.12);
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+.pc-wishlist-btn.active {
+  background: var(--gold-gradient);
+  border-color: #ffffff;
+  color: #050e24;
+  box-shadow: 0 0 20px rgba(245, 196, 81, 0.65);
+  animation: heartPop 0.42s ease;
+}
+
+@keyframes heartPop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.32);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Yurakcha portlash zarralari (Sparkles) */
+.pc-sparkle-ring {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pc-sparkle-ring i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  animation: sparkleFly 0.7s ease-out forwards;
+}
+
+.pc-sparkle-ring i:nth-child(1) { --dx: 0px; --dy: -28px; background: #00d2ff; }
+.pc-sparkle-ring i:nth-child(2) { --dx: 24px; --dy: -14px; }
+.pc-sparkle-ring i:nth-child(3) { --dx: 24px; --dy: 14px; background: #00d2ff; }
+.pc-sparkle-ring i:nth-child(4) { --dx: 0px; --dy: 28px; }
+.pc-sparkle-ring i:nth-child(5) { --dx: -24px; --dy: 14px; background: #00d2ff; }
+.pc-sparkle-ring i:nth-child(6) { --dx: -24px; --dy: -14px; }
+
+@keyframes sparkleFly {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.2);
+  }
+}
+
+/* Energiya klassi nishoni */
+.pc-energy-pill {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
   border-radius: 7px;
-  border: 1px solid #ffffff20;
-  background: #27212c;
-  color: white;
+  background: rgba(5, 16, 42, 0.85);
+  border: 1px solid rgba(0, 210, 255, 0.45);
+  color: var(--cyan-bright);
+  font-size: 0.72rem;
+  font-weight: 800;
 }
 
-.quantity button:hover {
-  background: var(--pink);
+/* Hover Quick View Overlay */
+.pc-hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 12, 32, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  z-index: 3;
 }
 
-.quantity span {
-  font-size: 12px;
-  color: white;
+.pc-media-box:hover .pc-hover-overlay {
+  opacity: 1;
 }
 
-.remove-button {
-  border: none;
-  background: none;
-  color: #9b8f9d;
-  font-size: 23px;
+.pc-quickview-trigger {
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: rgba(7, 22, 54, 0.92);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  transform: translateY(10px);
+  transition: all 0.28s ease;
 }
 
-.remove-button:hover { color: var(--pink); }
-
-.cart-footer {
-  padding-top: 20px;
-  border-top: 1px solid #ffffff18;
+.pc-media-box:hover .pc-quickview-trigger {
+  transform: translateY(0);
 }
 
-.cart-subtotal, .cart-total {
+.pc-quickview-trigger:hover {
+  background: var(--gold-primary);
+  color: #050e24;
+}
+
+.pc-soldout-banner {
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 9, 23, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+
+.pc-soldout-banner span {
+  padding: 7px 16px;
+  border-radius: 10px;
+  background: rgba(255, 77, 109, 0.2);
+  border: 1px solid var(--danger);
+  color: #ff8fa3;
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+/* Kartochka Matn va Narx Qismi */
+.pc-content-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  z-index: 3;
+}
+
+.pc-top-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.pc-brand-tag {
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--cyan-primary);
+}
+
+.pc-stock-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.73rem;
+  font-weight: 600;
+}
+
+.pc-stock-indicator.in {
+  color: #34d399;
+}
+
+.pc-stock-indicator.out {
+  color: #f87171;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pc-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.38;
+  margin-bottom: 8px;
+  cursor: pointer;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s ease;
+}
+
+.pc-title:hover {
+  color: var(--gold-primary);
+}
+
+/* Yulduzchalar */
+.pc-stars-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 12px;
+}
+
+.pc-star {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.pc-star.filled {
+  color: var(--gold-primary);
+}
+
+.pc-rating-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-left: 5px;
+}
+
+.pc-reviews-cnt {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* Texnik xususiyatlar */
+.pc-specs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(4, 13, 34, 0.65);
+  border: 1px solid rgba(0, 210, 255, 0.14);
+  margin-bottom: 12px;
+}
+
+.pc-spec-item {
   display: flex;
   justify-content: space-between;
+  gap: 8px;
+  font-size: 0.77rem;
+}
+
+.pc-spec-k {
+  color: var(--text-muted);
+}
+
+.pc-spec-v {
+  color: var(--text-main);
+  font-weight: 600;
+  text-align: right;
+}
+
+.pc-more-specs-btn {
+  font-size: 0.72rem;
+  color: var(--cyan-primary);
+  text-align: left;
+  margin-top: 3px;
+  font-weight: 600;
+}
+
+.pc-warranty-strip {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+}
+
+/* Narxlar */
+.pc-pricing-section {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pc-old-price-wrap {
+  display: flex;
   align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.pc-old-price {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.pc-save-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.14);
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+.pc-current-price {
+  font-size: 1.28rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ffffff 0%, #ffe082 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pc-installment-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(0, 210, 255, 0.1);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  font-size: 0.76rem;
+  color: var(--cyan-bright);
+}
+
+.inst-gold-badge {
+  background: var(--gold-primary);
+  color: #050e24;
+  font-weight: 900;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+}
+
+/* Kartochka Pastki Tugmalar */
+.pc-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.pc-add-cart-btn {
+  flex: 1;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--blue-cyan-gradient);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 20px rgba(0, 210, 255, 0.25);
+  transition: all 0.25s ease;
+}
+
+.pc-add-cart-btn:hover:not(:disabled) {
+  background: var(--gold-gradient);
+  color: #050e24;
+  box-shadow: 0 8px 22px rgba(245, 196, 81, 0.38);
+}
+
+.pc-add-cart-btn.in-cart {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid #10b981;
+  color: #6ee7b7;
+  box-shadow: none;
+}
+
+.pc-add-cart-btn.in-cart:hover {
+  background: #10b981;
+  color: #030917;
+}
+
+.plus-one {
+  background: rgba(255, 255, 255, 0.18);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+}
+
+.pc-add-cart-btn:disabled {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.pc-secondary-fav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(10, 28, 66, 0.85);
+  border: 1px solid rgba(245, 196, 81, 0.35);
+  color: var(--gold-primary);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.22s ease;
+}
+
+.pc-secondary-fav-btn:hover,
+.pc-secondary-fav-btn.active {
+  background: var(--gold-gradient);
+  color: #050e24;
+  border-color: var(--gold-primary);
+}
+
+/* Bo'sh katalog holati */
+.empty-catalog-state {
+  text-align: center;
+  padding: 64px 24px;
+  border-radius: 24px;
+  background: var(--bg-card);
+  border: 1px dashed rgba(245, 196, 81, 0.4);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.empty-catalog-state h3 {
+  font-size: 1.35rem;
+  margin-bottom: 8px;
+}
+
+.empty-catalog-state p {
+  color: var(--text-secondary);
+  margin-bottom: 22px;
+}
+
+/* ==========================================================================
+   AFZALLIKLAR VA FAQ BO'LIMLARI
+   ========================================================================== */
+.benefits-section {
+  padding: 64px 0;
+  background: linear-gradient(180deg, transparent, rgba(8, 24, 60, 0.65), transparent);
+}
+
+.section-header-center {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.benefit-card {
+  padding: 26px 22px;
+  border-radius: 22px;
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 210, 255, 0.22);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold-primary);
+}
+
+.benefit-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
   margin-bottom: 16px;
 }
 
-.cart-subtotal {
-  color: #aaa0af;
-  font-size: 12px;
+.gold-glow {
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-border);
 }
 
-.cart-subtotal b { color: white; }
-
-.cart-total {
-  font-size: 13px;
+.cyan-glow {
+  background: var(--cyan-soft);
+  border: 1px solid var(--cyan-border);
 }
 
-.cart-total span { color: #aaa0af; }
-
-.cart-total strong {
-  font-family: Manrope, sans-serif;
-  font-size: 19px;
-  color: var(--pink);
+.blue-glow {
+  background: rgba(37, 99, 235, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.45);
 }
 
-.checkout-button {
-  width: 100%;
-  height: 52px;
-  padding: 0 18px;
-  border: none;
-  border-radius: 10px;
-  background: var(--pink);
-  color: white;
-  font-size: 12px;
+.benefit-card h3 {
+  font-size: 1.08rem;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.benefit-card p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* FAQ Bo'limi */
+.faq-section {
+  padding: 44px 0 80px;
+}
+
+.faq-container {
+  max-width: 880px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.faq-item {
+  padding: 20px 24px;
+  border-radius: 18px;
+  background: var(--bg-card);
+  border: 1px solid rgba(0, 210, 255, 0.22);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.faq-item.open {
+  border-color: var(--gold-primary);
+  background: rgba(13, 35, 82, 0.92);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.faq-question h4 {
+  font-size: 1.02rem;
+  color: #ffffff;
+}
+
+.faq-toggle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  color: var(--gold-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 800;
+  flex-shrink: 0;
+}
+
+.faq-answer {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   YON PANELLAR (SEVIMLILAR VA SAVATCHA DRAWERS)
+   ========================================================================== */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 8, 22, 0.76);
+  backdrop-filter: blur(6px);
+  z-index: 900;
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.drawer-panel {
+  width: 100%;
+  max-width: 450px;
+  height: 100%;
+  background: linear-gradient(180deg, #071738 0%, #040d21 100%);
+  border-left: 1.5px solid rgba(245, 196, 81, 0.4);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  animation: slideInRight 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.drawer-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.drawer-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.gold-heart {
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+.cyan-cart {
+  background: var(--cyan-soft);
+  border: 1px solid var(--cyan-primary);
+  color: var(--cyan-bright);
+}
+
+.drawer-title-wrap h3 {
+  font-size: 1.12rem;
+  color: #ffffff;
+}
+
+.drawer-title-wrap p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.drawer-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.drawer-close-btn:hover {
+  background: var(--gold-primary);
+  color: #050e24;
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+}
+
+.drawer-empty {
+  text-align: center;
+  padding: 48px 16px;
+}
+
+.empty-heart-circle {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: rgba(245, 196, 81, 0.12);
+  border: 1px dashed var(--gold-primary);
+  color: var(--gold-primary);
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-empty h4 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.drawer-empty p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin-bottom: 22px;
+}
+
+/* Wishlist Item Row */
+.wishlist-items-list,
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wishlist-card-row,
+.cart-item-row {
+  display: flex;
+  gap: 14px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(11, 30, 70, 0.78);
+  border: 1px solid rgba(0, 210, 255, 0.22);
+}
+
+.wl-thumb,
+.cart-item-row img {
+  width: 76px;
+  height: 76px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.wl-details,
+.cart-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.wl-brand {
+  font-size: 0.68rem;
+  color: var(--cyan-primary);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.wl-details h4,
+.cart-item-info h4 {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin: 2px 0 6px;
+  cursor: pointer;
+}
+
+.wl-price-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.wl-price,
+.cart-item-price {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+}
+
+.wl-old-price {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.wl-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wl-to-cart-btn {
+  flex: 1;
+  padding: 7px 12px;
+  border-radius: 9px;
+  background: var(--blue-cyan-gradient);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.wl-to-cart-btn:hover:not(:disabled) {
+  background: var(--gold-gradient);
+  color: #050e24;
+}
+
+.wl-remove-btn {
+  padding: 6px 9px;
+  border-radius: 9px;
+  background: rgba(255, 77, 109, 0.14);
+  color: #ff8fa3;
+  font-size: 0.85rem;
+}
+
+.drawer-footer {
+  padding: 18px 24px;
+  border-top: 1px solid rgba(245, 196, 81, 0.25);
+  background: rgba(4, 12, 30, 0.9);
+}
+
+/* Savatcha miqdor tugmalari */
+.qty-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  background: rgba(4, 13, 33, 0.85);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  border-radius: 9px;
+  padding: 3px 8px;
+}
+
+.qty-controls button {
+  width: 24px;
+  height: 24px;
+  color: var(--gold-primary);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.qty-controls span {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.cart-del-btn {
+  align-self: flex-start;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  padding: 4px;
+}
+
+.cart-del-btn:hover {
+  color: var(--danger);
+}
+
+/* Promo-kod va Buyurtma formasi */
+.promo-form {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.promo-form input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(4, 13, 33, 0.85);
+  border: 1px solid rgba(0, 210, 255, 0.3);
+  color: #ffffff;
+  font-size: 0.85rem;
+  outline: none;
+}
+
+.promo-form button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(245, 196, 81, 0.18);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  font-weight: 700;
+  font-size: 0.84rem;
+}
+
+.checkout-mini-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.checkout-mini-form h4 {
+  font-size: 0.98rem;
+  color: var(--gold-primary);
+  margin-bottom: 2px;
+}
+
+.checkout-mini-form input {
+  padding: 11px 14px;
+  border-radius: 11px;
+  background: rgba(4, 13, 33, 0.9);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  color: #ffffff;
+  font-size: 0.88rem;
+  outline: none;
+}
+
+.checkout-mini-form input:focus {
+  border-color: var(--gold-primary);
+}
+
+.cart-summary-box {
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(6, 18, 46, 0.9);
+  border: 1px solid rgba(245, 196, 81, 0.3);
+  margin: 6px 0;
+}
+
+.summary-row {
   display: flex;
   justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.summary-row.saved {
+  color: #34d399;
+}
+
+.summary-row.gold {
+  color: var(--gold-primary);
+}
+
+.free-tag {
+  color: var(--cyan-bright);
+  font-weight: 800;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 8px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+}
+
+/* ==========================================================================
+   QUICK VIEW MODAL VA TASDIQ OYNASI
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 8, 22, 0.82);
+  backdrop-filter: blur(8px);
+  z-index: 950;
+  display: flex;
   align-items: center;
-  transition: .2s;
+  justify-content: center;
+  padding: 20px;
 }
 
-.checkout-button:hover {
-  background: #ff82b2;
+.quick-view-modal {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 26px;
+  background: linear-gradient(145deg, #0a1f4d 0%, #051029 100%);
+  border: 1.5px solid rgba(245, 196, 81, 0.5);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+  padding: 28px;
 }
 
-.checkout-button span { font-size: 18px; }
+.modal-close-x {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 1.1rem;
+  z-index: 5;
+}
 
-.cart-footer > p {
-  color: #8f8593;
+.modal-close-x:hover {
+  background: var(--gold-primary);
+  color: #050e24;
+}
+
+.qv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.qv-image-side {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #061331;
+  border: 1px solid rgba(0, 210, 255, 0.25);
+}
+
+.qv-image-side img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+.qv-badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  gap: 8px;
+}
+
+.badge-new {
+  background: var(--cyan-primary);
+  color: #030917;
+  padding: 4px 10px;
+  border-radius: 7px;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.badge-sale {
+  background: var(--gold-gradient);
+  color: #050e24;
+  padding: 4px 10px;
+  border-radius: 7px;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.qv-energy-tag {
+  padding: 10px 14px;
+  background: rgba(4, 13, 33, 0.9);
+  font-size: 0.82rem;
+  color: var(--cyan-bright);
   text-align: center;
-  font-size: 10px;
-  margin-top: 15px;
 }
 
-@media (max-width: 1050px) {
-  .products-grid { grid-template-columns: repeat(3, 1fr); }
-  .nav { gap: 16px; }
-  .benefits, .promo, .newsletter { margin-left: 20px; margin-right: 20px; }
+.qv-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
 }
 
-@media (max-width: 760px) {
-  .topbar { gap: 8px; font-size: 8px; }
-  .topbar span:last-child { display: none; }
-  .header { height: 70px; }
-  .header-inner { padding: 0 14px; }
-  .logo-symbol { width: 36px; height: 36px; }
-  .logo-text { font-size: 15px; }
+.qv-brand {
+  color: var(--cyan-primary);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
 
-  .mobile-menu-button {
-    display: block;
-    margin-left: auto;
-    margin-right: 10px;
+.qv-rating {
+  color: var(--gold-primary);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.qv-info-side h2 {
+  font-size: 1.55rem;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.qv-description {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.qv-specs-table {
+  background: rgba(4, 13, 33, 0.75);
+  border-radius: 14px;
+  padding: 12px 16px;
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  margin-bottom: 14px;
+}
+
+.qv-spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 0.84rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.qv-spec-row:last-child {
+  border-bottom: none;
+}
+
+.spec-key {
+  color: var(--text-muted);
+}
+
+.spec-val {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.qv-warranty-box {
+  padding: 9px 14px;
+  border-radius: 10px;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold-border);
+  color: var(--gold-bright);
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.qv-price-block {
+  margin-bottom: 18px;
+}
+
+.qv-current-price {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--gold-primary);
+  margin-right: 12px;
+}
+
+.qv-old-price {
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.qv-installment {
+  display: block;
+  font-size: 0.84rem;
+  color: var(--cyan-bright);
+  margin-top: 3px;
+}
+
+.qv-action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.qv-fav-btn {
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: rgba(12, 34, 80, 0.9);
+  border: 1px solid var(--gold-primary);
+  color: var(--gold-primary);
+  font-weight: 700;
+}
+
+.qv-fav-btn.active {
+  background: var(--gold-gradient);
+  color: #050e24;
+}
+
+/* Buyurtma Muvaffaqiyat Modali */
+.success-modal {
+  max-width: 440px;
+  width: 100%;
+  padding: 36px 28px;
+  border-radius: 26px;
+  background: linear-gradient(160deg, #0b2254, #040d22);
+  border: 1.5px solid var(--gold-primary);
+  text-align: center;
+}
+
+.success-crown-icon {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--gold-gradient);
+  color: #050e24;
+  font-size: 2rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 30px rgba(245, 196, 81, 0.5);
+}
+
+.success-modal h3 {
+  font-size: 1.45rem;
+  margin-bottom: 10px;
+}
+
+.success-modal p {
+  color: var(--text-secondary);
+  font-size: 0.94rem;
+  margin-bottom: 24px;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION (BILDIRISHNOMA)
+   ========================================================================== */
+.toast-banner {
+  position: fixed;
+  bottom: 26px;
+  right: 26px;
+  z-index: 1200;
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+  animation: slideUpToast 0.3s ease;
+}
+
+@keyframes slideUpToast {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
-  .nav {
-    display: none;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    right: 0;
-    padding: 22px;
-    background: #17141c;
-    flex-direction: column;
-    box-shadow: 0 15px 25px #0008;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  .nav.nav-open { display: flex; }
-  .header-actions { gap: 6px; }
-  .favorite-header { padding: 0 8px; }
-  .cart-button { padding: 0 9px; gap: 5px; }
+.toast-gold {
+  background: linear-gradient(135deg, #0d265c, #1a3a7a);
+  border: 1.5px solid var(--gold-primary);
+  color: var(--gold-bright);
+}
 
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 50px 20px;
-    gap: 30px;
-  }
+.toast-cyan {
+  background: linear-gradient(135deg, #09224d, #0d3b6e);
+  border: 1.5px solid var(--cyan-primary);
+  color: var(--cyan-bright);
+}
 
-  .hero h1 { font-size: 48px; }
-  .hero-image { height: 290px; }
-  .hero-visual { margin-bottom: 25px; }
-  .hero-bubble { left: 0; }
+.toast-blue {
+  background: #0b2254;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
 
-  .benefits {
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.main-footer {
+  background: #030918;
+  border-top: 1px solid rgba(245, 196, 81, 0.25);
+  padding-top: 56px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 36px;
+  padding-bottom: 44px;
+}
+
+.footer-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 16px 0 20px;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-links a {
+  padding: 7px 14px;
+  border-radius: 10px;
+  background: rgba(0, 210, 255, 0.12);
+  border: 1px solid rgba(0, 210, 255, 0.28);
+  font-size: 0.82rem;
+  color: var(--cyan-bright);
+  font-weight: 600;
+}
+
+.social-links a:hover {
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+.footer-links-col h4,
+.footer-contact-col h4 {
+  font-size: 1rem;
+  color: var(--gold-primary);
+  margin-bottom: 16px;
+}
+
+.footer-links-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links-col a,
+.footer-links-col button {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  text-align: left;
+  transition: color 0.2s;
+}
+
+.footer-links-col a:hover,
+.footer-links-col button:hover {
+  color: var(--cyan-bright);
+}
+
+.footer-phone {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.footer-hours,
+.footer-address {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 18px 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gold-signature {
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES (MOBIL VA PLANSHET MOSLASHUVI)
+   ========================================================================== */
+@media (max-width: 1180px) {
+  .products-grid {
     grid-template-columns: repeat(2, 1fr);
-    margin-bottom: 60px;
-    padding: 20px 12px;
-    gap: 20px 10px;
   }
 
-  .catalog { padding: 0 15px 70px; }
-  .section-title h2 { font-size: 33px; }
-  .catalog-total { display: none; }
+  .categories-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 
-  .search-sort { flex-direction: column; }
-  .search { max-width: none; }
-  .search-sort select { width: 100%; }
+@media (max-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .catalog-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .filters-sidebar {
+    position: static;
+  }
+
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .qv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .header-search-box {
+    order: 3;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+
+  .btn-label-group {
+    display: none;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   .products-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-  }
-
-  .product-image { height: 155px; }
-  .product-info { padding: 11px; }
-  .product-info h3 { font-size: 11px; }
-  .product-prices strong { font-size: 12px; }
-  .add-to-cart { font-size: 10px; }
-
-  .promo {
-    margin: 0 15px 60px;
     grid-template-columns: 1fr;
   }
 
-  .promo > div { padding: 30px 22px; }
-  .promo h2 { font-size: 32px; }
-  .promo img { min-height: 240px; height: 240px; }
-
-  .newsletter {
-    margin: 0 15px 60px;
-    padding: 25px;
-    flex-direction: column;
-    align-items: flex-start;
+  .benefits-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
   }
 
-  .footer-main { grid-template-columns: repeat(2, 1fr); }
-  .footer-bottom { flex-direction: column; gap: 12px; }
+  .hero-metrics {
+    grid-template-columns: 1fr;
+  }
 }
-
-@media (max-width: 390px) {
-  .products-grid { gap: 8px; }
-  .product-image { height: 135px; }
-  .product-info h3 { font-size: 10px; }
-  .hero h1 { font-size: 40px; }
-  .hero-numbers { gap: 23px; }
-}
-
